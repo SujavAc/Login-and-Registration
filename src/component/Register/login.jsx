@@ -1,6 +1,5 @@
 import React from "react";
-
-
+import './style.scss';
 
 export class Login extends React.Component {
   constructor(props) {
@@ -14,7 +13,7 @@ export class Login extends React.Component {
   handleClick(event){
     
     }
-
+    
   render() {
     return (
       <div className="base-container" ref={this.props.containerRef}>
@@ -36,11 +35,9 @@ export class Login extends React.Component {
           <button type="button" className="btn" onClick={(event) => this.handleClick(event)}>
             Login
           </button>
-          <button type="button" className="btn" >
-            Register
-          </button>
         </div>
       </div>
     );
   }
 }
+export default Login;
