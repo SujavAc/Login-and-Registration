@@ -3,10 +3,13 @@ import "./style.scss";
 
 
 export class Home extends React.Component {
-render() {
+
+  
+  render() {
     return (
         <div className="base-container">
         <div className="header">Home Page</div>
+
         </div>
     );
   }
