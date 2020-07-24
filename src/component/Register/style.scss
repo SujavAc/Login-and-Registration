@@ -1,10 +1,18 @@
 .base-container {
-    width: 100%;
+    background-color: grey;
+    width: cover;
+    height: max-content;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 1px solid black;
   
     .header {
+      font-size: 24px;
+      font-family: "Open Sans", sans-serif;
+      color: black;
+    }
+    .userdetail{
       font-size: 24px;
       font-family: "Open Sans", sans-serif;
       color: black;
@@ -50,7 +58,7 @@
             transition: all 250ms ease-in-out;
             &:hover {
               background-color: #ffffff;
-              box-shadow: 0px 0px 14px 0.3px #0e81ce96;
+              box-shadow: 0px 0px 14px 0.3px white;
             }
   
             &:focus {
@@ -66,6 +74,12 @@
       padding: 0px 10px;
     }
     .btn{
-        padding: 0px 10px;
+        padding: 5px 20px;
+        margin-bottom: 30px;
     }
+    .btn:hover{
+      color:white;
+      background-color: grey;
+  }
+    
   }

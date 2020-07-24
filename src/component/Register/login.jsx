@@ -6,13 +6,14 @@ export class Login extends React.Component {
   constructor(props) {
     super(props);
     let loggedIn=false;
-    
+    let token=localStorage.getItem('token');
     this.state={
         email:'',
         password:'',
         login:[],
         data:'',
-        loggedIn
+        loggedIn,
+        token
     }
   }
   handleEmailChange = (e) => {
@@ -32,8 +33,10 @@ export class Login extends React.Component {
 
 
   handleClick(event){
-    this.login=JSON.parse(localStorage.getItem('register_details'));
+    
+     this.login=JSON.parse(localStorage.getItem('register_details'));
     this.login.map(data=>(
+      
       this.gmail=data.email
     ))
     this.login.map(data=>(
@@ -45,7 +48,7 @@ export class Login extends React.Component {
       localStorage.setItem('token',"dshfgsdfyusgf43657843hb43ghgfhd");
       this.setState({
         loggedIn:true
-      })
+      });
       
       
       
@@ -61,13 +64,18 @@ export class Login extends React.Component {
     }
     
   render() {
-    if(this.state.loggedIn){
+    if(this.state.loggedIn===true){
+      return <Redirect to="/home" />
+    }
+    else if(this.state.token){
+      alert('Already loggedin');
       return <Redirect to="/home" />
     }
     
     return (
       <div className="base-container" ref={this.props.containerRef}>
         <div className="header">Login</div>
+        
         <div className="content">
     
           <div className="form">

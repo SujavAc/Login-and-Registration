@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from 'react-router-dom';
+//import { Redirect } from 'react-router-dom';
 
 
 export class Register extends React.Component {
@@ -37,7 +37,7 @@ export class Register extends React.Component {
       email:this.state.email,
       register:true
     });
-    
+      alert('Successfully Registered ---> proceed to login');
       console.log('Registered Data:',registerData);
       localStorage.setItem('register_details',JSON.stringify(registerData));
     }
@@ -66,9 +66,6 @@ export class Register extends React.Component {
   }
 
   render() {
-    if(this.state.register){
-      return <Redirect to="/login" />
-    }
     return (
       <div className="base-container">
         <div className="header">Register</div>
@@ -76,16 +73,16 @@ export class Register extends React.Component {
           
           <div className="form">
             <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input type="text" name="username" id="username"  placeholder="username"  onChange={this.handleUsernameChange} required />
+              <label htmlFor="username">Full Name</label>
+              <input type="text" name="username" id="username"  placeholder="Full Name"  onChange={this.handleUsernameChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" name="email" id="email" placeholder="email" onChange={this.handleEmailChange} required/>
+              <input type="email" name="email" id="email" placeholder="Email" onChange={this.handleEmailChange} required/>
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input type="password" name="password" id="password" placeholder="password"  onChange={this.handlePasswordChange} required/>
+              <input type="password" name="password" id="password" placeholder="Password"  onChange={this.handlePasswordChange} required/>
             </div>
           </div>
         </div>

@@ -30,7 +30,7 @@ export class Home extends React.Component {
   
   render() {
     if (this.state.loggedIn===false){
-      alert('please Login first');
+      alert('Thank You ! login again to enter Home page');
       return <Redirect to="/login" />
     }
     
@@ -38,6 +38,12 @@ export class Home extends React.Component {
         <div className="base-container">
         <div className="header">Home Page</div>
         <h1>Hi {this.username}!</h1>
+        <div className="userdetail">
+         <label>
+           <h1>Welcome {this.username}</h1>
+            <p>{this.email}</p>
+         </label>
+        </div>
         <div className="footer">
           <button type="button" className="btn" onClick={(event) => this.handleClick(event)}>
             LogOut

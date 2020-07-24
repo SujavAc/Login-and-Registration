@@ -4,7 +4,7 @@
 }
 
 .header{
-  margin-top:80px;
+  margin-top:30px;
   
 }
 .App-header {
@@ -24,17 +24,17 @@
   outline: 1px solid black;
 }
 
-@keyframes App-logo-spin {
+/* @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
+} */
 nav {
   align-items: center;
-  background:white;
+  background:grey;
   padding: 20px;
   color: black;
 }
@@ -43,8 +43,30 @@ nav ul {
   display: flex;
   justify-content: space-around;
   list-style: none;
+  
 }
 
-nav ul li {
-  font-weight: bold;
+nav ul li{
+  color:black;
+   background-color: transparent;
+   text-decoration: none;
+   margin: 5px 1px 3px 0px;    
+   line-height: 40px;
+   display: inline-block;
+   
+   font-size: 20px;
+   font-family: Verdana, Helvetica, Arial, sans-serif;  
+   -moz-border-top-left-radius: 10px;
+   border-top-left-radius: 10px;
+   -moz-border-top-right-radius: 10px;
+   border-top-right-radius: 10px;
+   -moz-border-bottom-left-radius: 10px;
+   border-bottom-left-radius: 10px;
+   -moz-border-bottom-left-radius: 10px;
+   border-bottom-right-radius: 10px;    
+}
+nav ul li:hover{
+  color:white;
+  background-color: black;
+  
 }
