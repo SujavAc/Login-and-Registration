@@ -1,15 +1,18 @@
 import React from "react";
 import './style.scss';
+import { Redirect } from "react-router-dom";
 
 export class Login extends React.Component {
   constructor(props) {
     super(props);
+    let loggedIn=false;
     
     this.state={
         email:'',
         password:'',
         login:[],
-        data:''
+        data:'',
+        loggedIn
     }
   }
   handleEmailChange = (e) => {
@@ -38,7 +41,13 @@ export class Login extends React.Component {
     )) 
     
     if(this.state.email===this.gmail && this.state.password===this.pass){
-      alert("verified user");
+      console.log("verified user");
+      localStorage.setItem('token',"dshfgsdfyusgf43657843hb43ghgfhd");
+      this.setState({
+        loggedIn:true
+      })
+      
+      
       
       
       
@@ -52,6 +61,10 @@ export class Login extends React.Component {
     }
     
   render() {
+    if(this.state.loggedIn){
+      return <Redirect to="/home" />
+    }
+    
     return (
       <div className="base-container" ref={this.props.containerRef}>
         <div className="header">Login</div>
@@ -60,7 +73,7 @@ export class Login extends React.Component {
           <div className="form">
             <div className="form-group">
               <label htmlFor="Email">Email</label>
-              <input type="text" name="email" placeholder="Email" onChange={this.handleEmailChange}/>
+              <input type="email" name="email" placeholder="Email" onChange={this.handleEmailChange}/>
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>

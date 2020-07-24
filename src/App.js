@@ -16,9 +16,10 @@ function App() {
     <div className="App">
       <Nav />
       <Switch>
-      <Route path="/home" exact component={Home}/>
+      <Route path="/" exact component={Register}/>
+      <Route path="/home" component={Home}/>
       <Route path="/login" component={Login}/>
-      <Route path="/register" component={Register}/>
+      <Route path="/register"  component={Register}/>
       </Switch>
     </div>
     </BrowserRouter>

@@ -4,12 +4,14 @@ import { Redirect } from 'react-router-dom';
 
 export class Register extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
+    let register=false;
     this.state={
         username:'',
         password:'',
         email:'',
-        registerData:[]
+        registerData:[],
+        register
     };
     this.handleEmailChange=this.handleEmailChange.bind(this);
     this.handleUsernameChange=this.handleUsernameChange.bind(this);
@@ -17,7 +19,9 @@ export class Register extends React.Component {
     
   }
   handleFormSubmit = (e) => {
-
+    if(!this.state.username || !this.state.password ||!this.state.email){
+      alert("please fill all inputs");
+    }else {
     e.preventDefault();
     let registerData = [...this.state.registerData];
     registerData.push({
@@ -30,12 +34,14 @@ export class Register extends React.Component {
       registerData,
       username: this.state.username,
       password:this.state.password,
-      email:this.state.email
+      email:this.state.email,
+      register:true
     });
     
-    console.log('Registered Data:',registerData);
-    localStorage.setItem('register_details',JSON.stringify(registerData));
-    return <Redirect path="/login" />;
+      console.log('Registered Data:',registerData);
+      localStorage.setItem('register_details',JSON.stringify(registerData));
+    }
+   
   };
   handlePasswordChange = (e) => {
     this.setState({
@@ -60,6 +66,9 @@ export class Register extends React.Component {
   }
 
   render() {
+    if(this.state.register){
+      return <Redirect to="/login" />
+    }
     return (
       <div className="base-container">
         <div className="header">Register</div>
@@ -72,7 +81,7 @@ export class Register extends React.Component {
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="text" name="email" id="email" placeholder="email" onChange={this.handleEmailChange} required/>
+              <input type="email" name="email" id="email" placeholder="email" onChange={this.handleEmailChange} required/>
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
