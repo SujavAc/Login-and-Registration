@@ -1,13 +1,18 @@
 import React from "react";
 import "./style.scss";
 import { Redirect } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 export class Login extends React.Component {
   constructor(props) {
     super(props);
-    let loggedIn = false;
-    let token = localStorage.getItem("token");
-    this.state = {
+    let loggedIn = false;  //consider the loggedIn value false in the begining
+    let token = localStorage.getItem("token");  //get the token value store in the local storage
+    this.state = {      //initial variables
       email: "",
       password: "",
       login: [],
@@ -15,10 +20,12 @@ export class Login extends React.Component {
       loggedIn,
       token,
       check: [],
-      Error: "",
-      Success: "",
+      msg: "",
+      setOpen: false,
     };
-    this.login = JSON.parse(localStorage.getItem("register_details"));
+    this.handleClick = this.handleClick.bind(this);   //bind the value in function handleClick
+    this.render = this.render.bind(this);   
+    this.login = JSON.parse(localStorage.getItem("register_details"));   //get the data stored in local storage using key register_detail
   }
   handleEmailChange = (e) => {
     this.setState({
@@ -31,28 +38,43 @@ export class Login extends React.Component {
     });
   };
 
-  handleClick(event) {
+  handleClick = (event) => {
+    this.setState({
+      setOpen: true,
+    });
     this.login.map((data) => (this.gmail = data.email));
     this.login.map((data) => (this.pass = data.password));
     console.log(this.gmail);
     console.log(this.pass);
 
     if (this.state.email === this.gmail && this.state.password === this.pass) {
-      alert("verified user");
-      localStorage.setItem("token", "dshfgsdfyusgf43657843hb43ghgfhd");
+      this.msg = "verified user";
+      this.setState({
+        msg: this.msg,
+      });
+      localStorage.setItem("token", "dshfgsdfyusgf43657843hb43ghgfhd");   //phase where the input email and password matched then the local storage stored the token to identify the user.
       this.setState({
         loggedIn: true,
       });
     } else {
-      alert("Enter valid inputs");
+      this.msg = "Enter valid inputs";
+      this.setState({
+        msg: this.msg,
+      });
     }
-  }
+  };
+  handleClose = (event, reason) => {
+    this.setState({
+      setOpen: false,
+    });
+  };
 
   render() {
-    if (this.state.loggedIn === true) {
+    if (this.state.loggedIn === true) {  //verify if the user is loggedIn and taken them directly to home page.
       return <Redirect to="/home" />;
-    } else if (this.state.token) {
+    } else if (this.state.token) {    // verify once loggeIn then they can't go to login page.
       alert("Already loggedin");
+      
       return <Redirect to="/home" />;
     }
 
@@ -63,33 +85,57 @@ export class Login extends React.Component {
           <div className="content">
             <div className="form">
               <div className="form-group">
-                <label htmlFor="Email">Email</label>
-                <input
+                <TextField
+                  label="Email"
                   type="email"
                   name="email"
-                  placeholder="Email"
                   onChange={this.handleEmailChange}
+                  required
                 />
               </div>
+
               <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
+                <TextField
+                  label="Password"
                   type="password"
                   name="password"
-                  placeholder="password"
                   onChange={this.handlePasswordChange}
+                  required
                 />
               </div>
             </div>
           </div>
           <div className="footer">
-            <button
+            <Button
+              variant="contained"
               type="button"
               className="btn"
               onClick={(event) => this.handleClick(event)}
             >
               Login
-            </button>
+            </Button>
+            <Snackbar
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              open={this.state.setOpen}
+              autoHideDuration={6000}
+              onClose={this.handleClose}
+              message={this.state.msg}
+              action={
+                <React.Fragment>
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={this.handleClose}
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </React.Fragment>
+              }
+            />
           </div>
         </div>
       </div>

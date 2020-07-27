@@ -1,35 +1,49 @@
 import React from "react";
-//import { Redirect } from 'react-router-dom';
-//import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 export class Register extends React.Component {
-  constructor(props) {
+  constructor(props) {    //constructor
     super(props);
 
-    let register = false;
-    this.state = {
+    let register = false;  //initial value
+    this.state = {          //variable initialization
       username: "",
       password: "",
       email: "",
+      error: "",
       registerData: [],
       register,
+      setOpen: false,
     };
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+
+    this.handleEmailChange = this.handleEmailChange.bind(this);     //bind the value of email from register form
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);     //bind the value of username from register form
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);      //bind the value of password from register form
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);         //bind the error value in state variable
   }
   handleFormSubmit = (e) => {
-    if (!this.state.username || !this.state.password || !this.state.email) {
-      alert("please fill all inputs");
+    this.setState({     //set the state variable with new value
+      setOpen: true,
+    });
+    if (!this.state.username || !this.state.password || !this.state.email) {   //validation register form
+      this.error = "please fill all inputs";
+      this.setState({
+        error: this.error,  //set the value of error.
+      });
+      
     } else {
       e.preventDefault();
       let registerData = [...this.state.registerData];
-      registerData.push({
+      registerData.push({        //push the values of username,email and password in the registerData array
         username: this.state.username,
         password: this.state.password,
         email: this.state.email,
       });
-      this.setState({
+      this.setState({    
         registerData,
         username: this.state.username,
         password: this.state.password,
@@ -37,25 +51,34 @@ export class Register extends React.Component {
         register: true,
       });
 
-      this.error = alert("Successfully Registered ---> proceed to login");
-      localStorage.setItem("register_details", JSON.stringify(registerData));
-      console.log("Registered Data:",registerData);
+      this.error = "Successfully Registered";
+      this.setState({
+        error: this.error,
+      });
+      localStorage.setItem("register_details", JSON.stringify(registerData));  //set the array data in the local storage 
+      console.log("Registered Data:", registerData);   //print out the array.
     }
   };
-  handlePasswordChange = (e) => {
+  handlePasswordChange = (e) => {  //function to get the password value from register form 
     this.setState({
-      password: e.target.value,
+      password: e.target.value,    //set the new value of password
     });
   };
   handleEmailChange = (e) => {
     this.setState({
-      email: e.target.value,
+      email: e.target.value,   //set the new value of email
     });
   };
 
   handleUsernameChange = (e) => {
     this.setState({
-      username: e.target.value,
+      username: e.target.value,   //set the new value of username
+    });
+  };
+
+  handleClose = (event, reason) => {
+    this.setState({
+      setOpen: false,
     });
   };
 
@@ -67,37 +90,31 @@ export class Register extends React.Component {
           <div className="content">
             <div className="form">
               <div className="form-group">
-                <label htmlFor="username">Full Name</label>
-                <input
+                <TextField
+                  label="First Name"
                   type="text"
                   name="username"
-                  id="username"
-                  placeholder="Full Name"
                   onChange={this.handleUsernameChange}
                   required
                 />
               </div>
-              {
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="Email"
-                    onChange={this.handleEmailChange}
-                    required
-                  />
-                </div>
-              }
 
               <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
+                <TextField
+                  label="Email"
+                  type="email"
+                  color="primary"
+                  name="email"
+                  onChange={this.handleEmailChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <TextField
+                  label="Password"
                   type="password"
                   name="password"
-                  id="password"
-                  placeholder="Password"
                   onChange={this.handlePasswordChange}
                   required
                 />
@@ -105,13 +122,32 @@ export class Register extends React.Component {
             </div>
           </div>
           <div className="footer">
-            <button
-              type="button"
-              className="btn"
-              onClick={this.handleFormSubmit}
-            >
+            <Button className="btn" onClick={this.handleFormSubmit}>
               Register
-            </button>
+            </Button>
+
+            <Snackbar
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              open={this.state.setOpen}
+              autoHideDuration={6000}
+              onClose={this.handleClose}
+              message={this.state.error}
+              action={
+                <React.Fragment>
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={this.handleClose}
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </React.Fragment>
+              }
+            />
           </div>
         </div>
       </div>
