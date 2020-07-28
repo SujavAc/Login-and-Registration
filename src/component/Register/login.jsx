@@ -7,12 +7,14 @@ import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 
+let data = [{ username: "sujav", email: "acharya.sujav@gmail.com" }];
 export class Login extends React.Component {
   constructor(props) {
     super(props);
-    let loggedIn = false;  //consider the loggedIn value false in the begining
-    let token = localStorage.getItem("token");  //get the token value store in the local storage
-    this.state = {      //initial variables
+    let loggedIn = false; //consider the loggedIn value false in the begining
+    let token = localStorage.getItem("token"); //get the token value store in the local storage
+    this.state = {
+      //initial variables
       email: "",
       password: "",
       login: [],
@@ -23,9 +25,9 @@ export class Login extends React.Component {
       msg: "",
       setOpen: false,
     };
-    this.handleClick = this.handleClick.bind(this);   //bind the value in function handleClick
-    this.render = this.render.bind(this);   
-    this.login = JSON.parse(localStorage.getItem("register_details"));   //get the data stored in local storage using key register_detail
+    this.handleClick = this.handleClick.bind(this); //bind the value in function handleClick
+    this.render = this.render.bind(this);
+    this.login = JSON.parse(localStorage.getItem("register_details")); //get the data stored in local storage using key register_detail
   }
   handleEmailChange = (e) => {
     this.setState({
@@ -42,25 +44,31 @@ export class Login extends React.Component {
     this.setState({
       setOpen: true,
     });
-    this.login.map((data) => (this.gmail = data.email));
-    this.login.map((data) => (this.pass = data.password));
-    console.log(this.gmail);
-    console.log(this.pass);
-
-    if (this.state.email === this.gmail && this.state.password === this.pass) {
-      this.msg = "verified user";
+    if (this.login === null) {
+      data.map((res) => (this.username = res.username));
+      data.map((res) => (this.email = res.email));
+      this.msg = "Invalid input";
       this.setState({
         msg: this.msg,
-      });
-      localStorage.setItem("token", "dshfgsdfyusgf43657843hb43ghgfhd");   //phase where the input email and password matched then the local storage stored the token to identify the user.
-      this.setState({
-        loggedIn: true,
       });
     } else {
-      this.msg = "Enter valid inputs";
-      this.setState({
-        msg: this.msg,
-      });
+      this.login.map((data) => (this.gmail = data.email));
+      this.login.map((data) => (this.pass = data.password));
+
+      if (
+        this.state.email === this.gmail &&
+        this.state.password === this.pass
+      ) {
+        localStorage.setItem("token", "dshfgsdfyusgf43657843hb43ghgfhd"); //phase where the input email and password matched then the local storage stored the token to identify the user.
+        this.setState({
+          loggedIn: true,
+        });
+      } else {
+        this.msg = "Enter valid inputs";
+        this.setState({
+          msg: this.msg,
+        });
+      }
     }
   };
   handleClose = (event, reason) => {
@@ -70,11 +78,13 @@ export class Login extends React.Component {
   };
 
   render() {
-    if (this.state.loggedIn === true) {  //verify if the user is loggedIn and taken them directly to home page.
+    if (this.state.loggedIn === true) {
+      //verify if the user is loggedIn and taken them directly to home page.
       return <Redirect to="/home" />;
-    } else if (this.state.token) {    // verify once loggeIn then they can't go to login page.
+    } else if (this.state.token) {
+      // verify once loggeIn then they can't go to login page.
       alert("Already loggedin");
-      
+
       return <Redirect to="/home" />;
     }
 
@@ -120,7 +130,7 @@ export class Login extends React.Component {
                 horizontal: "center",
               }}
               open={this.state.setOpen}
-              autoHideDuration={6000}
+              autoHideDuration={3000}
               onClose={this.handleClose}
               message={this.state.msg}
               action={

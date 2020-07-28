@@ -1,10 +1,9 @@
 .full {
-  
   .base-container {
-    background-image: url(../../s2.png);    
+    background-image: url(../../s2.png);
     background-color: black;
     width: 100%;
-    height: min-height;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -126,9 +125,8 @@
       padding: 0px 10px;
       color: white;
 
-      .speeddial{
+      .speeddial {
         text-align: right;
-        
       }
     }
     .btn {
@@ -142,6 +140,5 @@
       background-color: grey;
       transition: 0.2 ease;
     }
-    
   }
 }

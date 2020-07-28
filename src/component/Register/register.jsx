@@ -6,11 +6,13 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 
 export class Register extends React.Component {
-  constructor(props) {    //constructor
+  constructor(props) {
+    //constructor
     super(props);
 
-    let register = false;  //initial value
-    this.state = {          //variable initialization
+    let register = false; //initial value
+    this.state = {
+      //variable initialization
       username: "",
       password: "",
       email: "",
@@ -20,30 +22,32 @@ export class Register extends React.Component {
       setOpen: false,
     };
 
-    this.handleEmailChange = this.handleEmailChange.bind(this);     //bind the value of email from register form
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);     //bind the value of username from register form
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);      //bind the value of password from register form
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);         //bind the error value in state variable
+    this.handleEmailChange = this.handleEmailChange.bind(this); //bind the value of email from register form
+    this.handleUsernameChange = this.handleUsernameChange.bind(this); //bind the value of username from register form
+    this.handlePasswordChange = this.handlePasswordChange.bind(this); //bind the value of password from register form
+    this.handleFormSubmit = this.handleFormSubmit.bind(this); //bind the error value in state variable
   }
   handleFormSubmit = (e) => {
-    this.setState({     //set the state variable with new value
+    this.setState({
+      //set the state variable with new value
       setOpen: true,
     });
-    if (!this.state.username || !this.state.password || !this.state.email) {   //validation register form
+    if (!this.state.username || !this.state.password || !this.state.email) {
+      //validation register form
       this.error = "please fill all inputs";
       this.setState({
-        error: this.error,  //set the value of error.
+        error: this.error, //set the value of error.
       });
-      
     } else {
       e.preventDefault();
       let registerData = [...this.state.registerData];
-      registerData.push({        //push the values of username,email and password in the registerData array
+      registerData.push({
+        //push the values of username,email and password in the registerData array
         username: this.state.username,
         password: this.state.password,
         email: this.state.email,
       });
-      this.setState({    
+      this.setState({
         registerData,
         username: this.state.username,
         password: this.state.password,
@@ -55,24 +59,25 @@ export class Register extends React.Component {
       this.setState({
         error: this.error,
       });
-      localStorage.setItem("register_details", JSON.stringify(registerData));  //set the array data in the local storage 
-      console.log("Registered Data:", registerData);   //print out the array.
+      localStorage.setItem("register_details", JSON.stringify(registerData)); //set the array data in the local storage
+      console.log("Registered Data:", registerData); //print out the array.
     }
   };
-  handlePasswordChange = (e) => {  //function to get the password value from register form 
+  handlePasswordChange = (e) => {
+    //function to get the password value from register form
     this.setState({
-      password: e.target.value,    //set the new value of password
+      password: e.target.value, //set the new value of password
     });
   };
   handleEmailChange = (e) => {
     this.setState({
-      email: e.target.value,   //set the new value of email
+      email: e.target.value, //set the new value of email
     });
   };
 
   handleUsernameChange = (e) => {
     this.setState({
-      username: e.target.value,   //set the new value of username
+      username: e.target.value, //set the new value of username
     });
   };
 
@@ -132,7 +137,7 @@ export class Register extends React.Component {
                 horizontal: "center",
               }}
               open={this.state.setOpen}
-              autoHideDuration={6000}
+              autoHideDuration={3000}
               onClose={this.handleClose}
               message={this.state.error}
               action={
